@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { fetchQuizQuestions, Difficulty, QuestionState } from "./API";
 // Components
 import QuestionCard from "./components/QuestionCard";
+import styled from "styled-components";
 
 export type AnswerObject = {
   question: string,
@@ -11,6 +12,69 @@ export type AnswerObject = {
 }
 
 const TOTAL_QUESTIONS = 10;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  background-color: whitesmoke;
+`;
+
+const TitleText = styled.h1`
+  font-size: 56px;
+  font-weight: 700;
+  margin: 30px 0;
+  color: #4257b2;
+`;
+
+const StartButton = styled.button`
+  width: 150px;
+  height: 70px;
+  background-color: #ffdc62;
+  color: #4257b2;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffd12c;
+    font-size: 32px;
+  }
+`;
+
+const ScoreText = styled.p`
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: rgba(66, 87, 178, 0.9);
+`;
+
+const LoadingText = styled.p`
+  font-size: 24px;
+  color: rgba(66, 87, 178, 0.9);
+`;
+
+const NextButton = styled.button`
+  margin-top: 30px;
+  width: 240px;
+  height: 60px;
+  background-color: #7dd;
+  color: #4257b2;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    font-size: 25px;
+  }
+`;
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -62,15 +126,15 @@ const App = () => {
       setNumber(nextQuestion);
     }
   }
-  
+
   return (
-    <div className="App">
-      <h1>Quiz application</h1>
+    <Container className="App" style={{textAlign: 'center'}}>
+      <TitleText>Quiz application</TitleText>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-        <button className="start" onClick={startTravia}>Start</button>
+        <StartButton onClick={startTravia}>Start</StartButton>
       ) : null }
-      {!gameOver ? <p className="score">Score: </p> : null}
-      {loading && <p>Loading Question ...</p>}
+      {!gameOver ? <ScoreText>Score: {score}</ScoreText> : null}
+      {loading && <LoadingText>Loading Question ...</LoadingText>}
       {!loading && !gameOver && (
         <QuestionCard 
         questionNumber={number + 1}
@@ -82,9 +146,9 @@ const App = () => {
         />
       )}
       {!loading && !gameOver && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-        <button className="next" onClick={nextQuestion}>Next Question</button>
+        <NextButton onClick={nextQuestion}>Next Question</NextButton>
       ) : null }
-    </div>
+    </Container>
   );
 }
 
