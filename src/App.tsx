@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Components
+import QuestionCard from "./components/QuestionCard";
 
-function App() {
+const App = () => {
+
+  const startTravia = async () => {
+
+  }
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  }
+
+  const nextQuestion = () => {
+
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Quiz application</h1>
+      <button className="start" onClick={startTravia}>
+        Start
+      </button>
+      <p className="score">Score: </p>
+      <p>Loading Question ...</p>
+      <QuestionCard />
+      <button className="next" onClick={nextQuestion}>
+        Next Question
+      </button>
     </div>
   );
 }
